@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,10 +18,12 @@ import java.util.List;
  */
 public class CsvTransactionProcessor implements TransactionProcessor {
 
+    private List<Transaction> transactionList;
+
     @Override
-    public List<Transaction> importTransactions(InputStream is) {
+    public void importTransactions(InputStream is) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
-            List<Transaction> transactionList = new ArrayList<>();
+            transactionList = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] transactionRecord = line.split(",");
@@ -30,22 +31,18 @@ public class CsvTransactionProcessor implements TransactionProcessor {
                 BigDecimal amount = getAmount(amountString);
                 transactionList.add(new Transaction(transactionRecord[0], amount, transactionRecord[2]));
             }
-            return transactionList;
         } catch (IOException e) {
             throw new IllegalStateException("Error while reading CSV from stream", e);
         }
     }
 
-    private BigDecimal getAmount(String amountString) {
-        try{
-            return new BigDecimal(amountString);
-        }catch (NumberFormatException e){
-            return BigDecimal.ZERO;
-        }
+    @Override
+    public List<Transaction> getImportedTransactions() {
+        return transactionList;
     }
 
     @Override
-    public boolean isBalanced(List<Transaction> transactionList) {
+    public boolean isBalanced() {
         BigDecimal balance = BigDecimal.ZERO;
         for (Transaction transaction : transactionList) {
             balance = balance.add("C".equals(transaction.getType()) ? transaction.getAmount() : transaction.getAmount().negate());
@@ -54,13 +51,21 @@ public class CsvTransactionProcessor implements TransactionProcessor {
     }
 
     @Override
-    public List<Violation> validate(List<Transaction> transactionList) {
+    public List<Violation> validate() {
         List<Violation> violationList = new ArrayList<>();
         for (int i = 0; i < transactionList.size(); i++) {
             validateType(transactionList.get(i), violationList, i+1);
             validateAmount(transactionList.get(i), violationList, i+1);
         }
         return violationList;
+    }
+
+    private BigDecimal getAmount(String amountString) {
+        try{
+            return new BigDecimal(amountString);
+        }catch (NumberFormatException e){
+            return BigDecimal.ZERO;
+        }
     }
 
     private void validateType(Transaction transaction, List<Violation> violationList, int txOrder) {
