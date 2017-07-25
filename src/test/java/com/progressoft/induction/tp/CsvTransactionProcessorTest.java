@@ -1,6 +1,5 @@
 package com.progressoft.induction.tp;
 
-import com.progressoft.induction.tp.impl.CsvTransactionProcessor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +21,27 @@ public class CsvTransactionProcessorTest {
 
     @Before
     public void setUp() {
-        csvTransactionProcessor = new CsvTransactionProcessor();
+        csvTransactionProcessor = new TransactionProcessor(){
+
+            @Override
+            public void importTransactions(InputStream is) {
+            }
+
+            @Override
+            public List<Transaction> getImportedTransactions() {
+                return null;
+            }
+
+            @Override
+            public List<Violation> validate() {
+                return null;
+            }
+
+            @Override
+            public boolean isBalanced() {
+                return false;
+            }
+        };
     }
 
     @Test
