@@ -2,7 +2,7 @@
 
 ### Summary
 The _Transaction Processor_ is a system that allows users to import financial transactions (debits and credits of an account), it can handle transactions in different formats; namely CSV (comma-separated values) and XML.
-Once the transactions are imported, the system can validate them and reports back any violation, it also can determin whether the imported transactions are balanced or not.
+Once the transactions are imported, the system can validate them and reports back any violation, it also can determine whether the imported transactions are balanced or not.
 
 ### Implementation Details
 A transaction consists of the following:
@@ -43,7 +43,20 @@ The `TransactionProcessor` interface has four methods:
 
 
 ##### JUnit tests
+JUnit is a framework to help you test your code and make sure that each peice of code works as intended.
+
 You are provided with two JUnit test classes (for the CSV and XML implementations) that will help you understand what is required from you and help you test your work.
 
+##### Maven
+Maven is a software project management tool that helps you develop and build your project.
+
+The Java project provided to you is a maven project, no prior knowledge of maven is reqquired. You can simply import the project to eclipse using the following steps:
+* Save the project ZIP file and extract it
+* Open Eclipse
+* Go to _File_ --> _Import..._
+* Select _Maven_ --> _Existing Maven Projects_ and click _Next_
+* _Browse_ to the extracted project directory and click _OK_
+* Click _Finish_
+
 ##### Delivery
-Your delivery should be two implementations of the `TransactionProcessor` interface and you should not modify the interface itself.
+You should create and sent two implementations of the `TransactionProcessor` interface, one that handles XML and another for CSV. You must not modify the `TransactionProcessor` interface itself.

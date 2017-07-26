@@ -61,12 +61,4 @@ public class Transaction {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "type='" + type + '\'' +
-                ", amount=" + amount +
-                ", narration='" + narration + '\'' +
-                '}';
-    }
 }

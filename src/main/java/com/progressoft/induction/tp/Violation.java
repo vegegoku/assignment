@@ -61,13 +61,4 @@ public class Violation {
         result = 31 * result + (property != null ? property.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "Violation{" +
-                "order=" + order +
-                ", property='" + property + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

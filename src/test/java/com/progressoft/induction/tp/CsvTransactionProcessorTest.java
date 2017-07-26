@@ -1,5 +1,6 @@
 package com.progressoft.induction.tp;
 
+import com.progressoft.induction.tp.impl.CsvTransactionProcessor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,27 +22,7 @@ public class CsvTransactionProcessorTest {
 
     @Before
     public void setUp() {
-        csvTransactionProcessor = new TransactionProcessor(){
-
-            @Override
-            public void importTransactions(InputStream is) {
-            }
-
-            @Override
-            public List<Transaction> getImportedTransactions() {
-                return null;
-            }
-
-            @Override
-            public List<Violation> validate() {
-                return null;
-            }
-
-            @Override
-            public boolean isBalanced() {
-                return false;
-            }
-        };
+        csvTransactionProcessor = new CsvTransactionProcessor();// replace the null with your CSV implementation class
     }
 
     @Test
@@ -59,7 +40,7 @@ public class CsvTransactionProcessorTest {
 
     @Test
     public void givenBalancedCsvStream_WhenImportAndCheckIfBalanced_ThenReturnTrue() throws Exception {
-        InputStream is = asStream("C,1000,salary\nD,200,rent\nD,800,other");
+        InputStream is = asStream("C,1000.50,salary\nD,200,rent\nD,800.50,other");
         csvTransactionProcessor.importTransactions(is);
 
         assertEquals(true, csvTransactionProcessor.isBalanced());

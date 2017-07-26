@@ -1,5 +1,6 @@
 package com.progressoft.induction.tp;
 
+import com.progressoft.induction.tp.impl.XmlTransactionProcessor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,31 +22,11 @@ public class XmlTransactionProcessorTest {
 
     @Before
     public void setUp() {
-        xmlTransactionProcessor = new TransactionProcessor(){
-
-            @Override
-            public void importTransactions(InputStream is) {
-            }
-
-            @Override
-            public List<Transaction> getImportedTransactions() {
-                return null;
-            }
-
-            @Override
-            public List<Violation> validate() {
-                return null;
-            }
-
-            @Override
-            public boolean isBalanced() {
-                return false;
-            }
-        };
+        xmlTransactionProcessor = new XmlTransactionProcessor();// replace the null with your XML implementation class
     }
 
     @Test
-    public void givenValidCsvStream_WhenImport_ThenReturnTheExpectedTransactions() {
+    public void givenValidXmlStream_WhenImport_ThenReturnTheExpectedTransactions() {
         InputStream is = asStream("<TransactionList>\n" +
                 "    <Transaction type=\"C\" amount=\"1000\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"D\" amount=\"200\" narration=\"rent\" />\n" +
@@ -62,11 +43,11 @@ public class XmlTransactionProcessorTest {
     }
 
     @Test
-    public void givenBalancedCsvStream_WhenImportAndCheckIfBalanced_ThenReturnTrue() throws Exception {
+    public void givenBalancedXmlStream_WhenImportAndCheckIfBalanced_ThenReturnTrue() throws Exception {
         InputStream is = asStream("<TransactionList>\n" +
-                "    <Transaction type=\"C\" amount=\"1000\" narration=\"salary\" />\n" +
+                "    <Transaction type=\"C\" amount=\"1000.50\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"D\" amount=\"200\" narration=\"rent\" />\n" +
-                "    <Transaction type=\"D\" amount=\"800\" narration=\"other\" />\n" +
+                "    <Transaction type=\"D\" amount=\"800.50\" narration=\"other\" />\n" +
                 "</TransactionList>");
         xmlTransactionProcessor.importTransactions(is);
 
@@ -74,7 +55,7 @@ public class XmlTransactionProcessorTest {
     }
 
     @Test
-    public void givenImbalancedCsvStream_WhenImportAndCheckIfBalanced_ThenReturnFalse() throws Exception {
+    public void givenImbalancedXmlStream_WhenImportAndCheckIfBalanced_ThenReturnFalse() throws Exception {
         InputStream is = asStream("<TransactionList>\n" +
                 "    <Transaction type=\"C\" amount=\"1000\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"D\" amount=\"400\" narration=\"rent\" />\n" +
@@ -86,7 +67,7 @@ public class XmlTransactionProcessorTest {
     }
 
     @Test
-    public void givenCsvStreamWithAnInvalidTransaction_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
+    public void givenXmlStreamWithAnInvalidTransaction_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
         InputStream is = asStream("<TransactionList>\n" +
                 "    <Transaction type=\"C\" amount=\"1000\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"X\" amount=\"400\" narration=\"rent\" />\n" +
@@ -99,7 +80,7 @@ public class XmlTransactionProcessorTest {
     }
 
     @Test
-    public void givenCsvStreamWithMultipleInvalidTransactions_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
+    public void givenXmlStreamWithMultipleInvalidTransactions_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
         InputStream is = asStream("<TransactionList>\n" +
                 "    <Transaction type=\"C\" amount=\"one thousand\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"X\" amount=\"400\" narration=\"rent\" />\n" +
@@ -112,7 +93,7 @@ public class XmlTransactionProcessorTest {
     }
 
     @Test
-    public void givenCsvStreamWithMultipleErrorsInSameTransaction_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
+    public void givenXmlStreamWithMultipleErrorsInSameTransaction_WhenCallingValidate_ThenReportTheProperViolations() throws Exception {
         InputStream is = asStream("<TransactionList>\n" +
                 "    <Transaction type=\"C\" amount=\"one thousand\" narration=\"salary\" />\n" +
                 "    <Transaction type=\"X\" amount=\"0\" narration=\"rent\" />\n" +
