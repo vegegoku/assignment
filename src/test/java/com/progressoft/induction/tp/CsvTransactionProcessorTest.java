@@ -22,7 +22,7 @@ public class CsvTransactionProcessorTest {
 
     @Before
     public void setUp() {
-        csvTransactionProcessor = new CsvTransactionProcessor();
+        csvTransactionProcessor = new CsvTransactionProcessor();// replace the null with your CSV implementation class
     }
 
     @Test
@@ -40,7 +40,7 @@ public class CsvTransactionProcessorTest {
 
     @Test
     public void givenBalancedCsvStream_WhenImportAndCheckIfBalanced_ThenReturnTrue() throws Exception {
-        InputStream is = asStream("C,1000,salary\nD,200,rent\nD,800,other");
+        InputStream is = asStream("C,1000.50,salary\nD,200,rent\nD,800.50,other");
         csvTransactionProcessor.importTransactions(is);
 
         assertEquals(true, csvTransactionProcessor.isBalanced());
