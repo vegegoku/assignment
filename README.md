@@ -7,7 +7,6 @@ Credit transactins must equals the sum of Debit transactions.
 The _Transaction Processor_ allows users to import financial transactions (each transaction is either of type debit or credit), also it shall handle transactions in different formats; namely CSV (comma-separated values) and XML.
 Once the transactions are imported, the system can validate them and reports back any violation; _Violation_ is defined in case that file contains an invalid transaction record e.g. Invalid transaction type, missing amount...etc.
 
-, it also can determine whether the imported transactions are balanced or not.
 
 ### Implementation Details
 A transaction consists of the following:
