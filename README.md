@@ -1,7 +1,7 @@
 # Transactions Processor
 
 ### Summary
-Suppose you are part of a scrum team developing a component _Transaction Processor_ that process finantial transactions, the component shall check if the transactions loaded are balanced or not; the balanced transactions means that sum of 
+Suppose you are part of a scrum team developing a component _Transaction Processor_ that process financial transactions, the component shall check if the transactions loaded are balanced or not; the balanced transactions means that sum of 
 Credit transactins must equals the sum of Debit transactions.
 
 The _Transaction Processor_ allows users to import financial transactions (each transaction is either of type debit or credit), also it shall handle transactions in different formats; namely CSV (comma-separated values) and XML.
