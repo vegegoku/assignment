@@ -65,3 +65,8 @@ The Java project provided to you is a maven project, no prior knowledge of maven
 
 ##### Delivery
 You should create and sent two implementations of the `TransactionProcessor` interface, one that handles XML and another for CSV. You must not modify the `TransactionProcessor` interface itself.
+
+
+##### Evaluation Criteria:
+* We will run the provided unit tests to verify that your delivered code is working and **all tests should pass**.
+* Code quality and simplicity is required so try to find the simplest solution with clean code style .
