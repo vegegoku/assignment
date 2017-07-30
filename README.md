@@ -11,7 +11,7 @@ Once the transactions are imported, the system can validate them and reports bac
 ### Implementation Details
 A transaction consists of the following:
 * *type*: whether the transaction is debit or credit, the value will be _D_ for debit or _C_ for credit.
-* *amount*: the amount of the transaction, the amount must be >=0.
+* *amount*: the amount of the transaction, the amount should be > 0, there is a test case that will return a violation when the amount is 0.
 * *narration*: a description/purpose of the transaction
 
 ##### Supported Formats
